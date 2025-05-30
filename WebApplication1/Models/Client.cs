@@ -9,7 +9,6 @@ namespace minibanque.Models
     public class Client
     {
         [Key]
-
         public int NumClient { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }

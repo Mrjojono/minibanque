@@ -9,6 +9,7 @@ namespace minibanque.Models
     {
         public DbSet<Client> Clients { get; set; }
         public DbSet<Compte> Clomptes { get; set; }
+        public DbSet<CompteCourant> ComptesCourants { get; set; }
         public DbSet<Livret> Livrets { get; set; }
         public DbSet<PEL> PELS { get; set; }
 

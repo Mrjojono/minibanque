@@ -12,8 +12,8 @@ using minibanque.Models;
 namespace minibanque.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250521140441_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250528142850_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,8 +81,8 @@ namespace minibanque.Migrations
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("Libelle")
                         .IsRequired()
@@ -103,6 +103,13 @@ namespace minibanque.Migrations
                     b.HasDiscriminator().HasValue("Compte");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("minibanque.Models.CompteCourant", b =>
+                {
+                    b.HasBaseType("minibanque.Models.Compte");
+
+                    b.HasDiscriminator().HasValue("CompteCourant");
                 });
 
             modelBuilder.Entity("minibanque.Models.Livret", b =>

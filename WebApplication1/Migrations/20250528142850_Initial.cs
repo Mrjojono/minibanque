@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace minibanque.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,7 +41,7 @@ namespace minibanque.Migrations
                     AutorisationDecouvert = table.Column<bool>(type: "bit", nullable: false),
                     MontantDecouvert = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: true),
                     TauxRemuneration = table.Column<double>(type: "float", nullable: true),
                     PEL_TauxRemuneration = table.Column<double>(type: "float", nullable: true)
                 },

@@ -7,6 +7,7 @@ namespace minibanque.Service
     {
         private List<Client> clients = new List<Client>();
         private List<Compte> comptes = new List<Compte>();
+        private List<CompteCourant> compteCourant = new List<CompteCourant>();
 
         public banqueService()
         {
@@ -14,7 +15,7 @@ namespace minibanque.Service
             {
                 // Initialize the lists with data from the database
                 clients = context.Clients.ToList();
-                comptes = context.Clomptes.ToList();
+                compteCourant = context.ComptesCourants.ToList();
             }
         }
 
@@ -103,9 +104,7 @@ namespace minibanque.Service
                 {
                     client  = context.Clients.Where(c=> c.Nom.StartsWith(name)).ToList();
                 }
-            }
-
-            return client;
+            } return client;
         }
 
         public void AddCompte( Compte compte)
@@ -113,10 +112,10 @@ namespace minibanque.Service
             comptes.Add(compte);
             // Add the account to the database
             using (var context = new AppDbContext())
-            {
+            {   
                 context.Clomptes.Add(compte);
                 context.SaveChanges();
-            }
+            } 
         }
 
         public void DeleteCompte(int numCompte)
@@ -132,6 +131,27 @@ namespace minibanque.Service
                     ToList().ForEach(c => context.Clomptes.Remove(c));
             }
         }
+
+        public Compte RechercherCompte(int NumCompte) => comptes.FirstOrDefault(c => c.NumCompte == NumCompte);
+
+        public List<Compte> RechercherComptesParClient(int NumClient) => comptes.Where(c => c.ClientId == NumClient).ToList();
+
+        public bool Virement(int SourceId, int DestinationId, decimal montant)
+        {
+            var src = RechercherCompte(SourceId);
+            var dest = RechercherCompte(DestinationId);
+            if (src != null && dest != null && src.Debit(montant))
+            {
+                dest.Credit(montant);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
 
 
     }

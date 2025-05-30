@@ -78,8 +78,8 @@ namespace minibanque.Migrations
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("Libelle")
                         .IsRequired()
@@ -100,6 +100,13 @@ namespace minibanque.Migrations
                     b.HasDiscriminator().HasValue("Compte");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("minibanque.Models.CompteCourant", b =>
+                {
+                    b.HasBaseType("minibanque.Models.Compte");
+
+                    b.HasDiscriminator().HasValue("CompteCourant");
                 });
 
             modelBuilder.Entity("minibanque.Models.Livret", b =>

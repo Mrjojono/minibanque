@@ -1,7 +1,12 @@
+using minibanque.Service;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddScoped<minibanque.Service.banqueService>();
 
 var app = builder.Build();
 
