@@ -132,7 +132,10 @@ namespace minibanque.Service
             }
         }
 
-        public Compte RechercherCompte(int NumCompte) => comptes.FirstOrDefault(c => c.NumCompte == NumCompte);
+        public Compte? RechercherCompte(int NumCompte)
+        {
+            return comptes.FirstOrDefault(c => c.NumCompte == NumCompte);
+        }
 
         public List<Compte> RechercherComptesParClient(int NumClient) => comptes.Where(c => c.ClientId == NumClient).ToList();
 

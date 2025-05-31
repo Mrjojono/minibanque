@@ -36,7 +36,7 @@ namespace minibanque.Controllers
         {
             Console.WriteLine("debut de traitement");
             var comptes = _banqueService.RechercherComptesParClient(clientId);
-            Console.WriteLine("fin d'affichage");
+            Console.WriteLine(comptes);
             if (comptes == null || !comptes.Any())
             {
                 return NotFound($"Aucun compte trouvé pour ce client : {clientId}");
@@ -50,12 +50,15 @@ namespace minibanque.Controllers
         public ActionResult RetournerUnCompte(int Id)
         {
             var compte = _banqueService.RechercherCompte(Id);
+            Console.WriteLine(compte);
             if (compte == null)
             {
                 return NotFound($"Aucun compte trouvé pour ce client : {Id}");
             }
             return Ok(compte);
         }
+
+
         [HttpPost("virement")]
         public IActionResult Virement([FromQuery] int SourceId, [FromQuery] int DestinationId, [FromQuery] decimal montant)
         {

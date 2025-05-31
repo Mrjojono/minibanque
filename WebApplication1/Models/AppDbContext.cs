@@ -17,6 +17,16 @@ namespace minibanque.Models
         {
             optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=minibanque;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=True");
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Compte>()
+                .HasDiscriminator<string>("Discriminator")
+                .HasValue<CompteCourant>("CompteCourant")
+                .HasValue<Livret>("Livret")
+                .HasValue<PEL>("PEL");
+
+            base.OnModelCreating(modelBuilder);
+        }
 
 
     }
